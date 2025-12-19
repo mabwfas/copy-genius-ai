@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates - CopyGenius AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="api.js"></script>
+    <style>
+        :root {
+            --primary: #ec4899;
+            --bg: #0f0f23;
+            --card: rgba(255, 255, 255, 0.05);
+            --text: #fff;
+            --muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background: rgba(15, 15, 35, 0.95);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--muted);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-link:hover {
+            background: var(--card);
+        }
+
+        .nav-link.active {
+            background: rgba(236, 72, 153, 0.15);
+            color: var(--primary);
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .template-card {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .template-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .template-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-preview {
+            color: var(--muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .badge {
+            padding: 0.2rem 0.5rem;
+            background: rgba(236, 72, 153, 0.2);
+            color: var(--primary);
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--card);
+            color: var(--text);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="logo"><i class="fas fa-wand-magic-sparkles"></i> CopyGenius</div>
+        <a href="index.html" class="nav-link"><i class="fas fa-pen"></i> Generate</a>
+        <a href="templates.html" class="nav-link active"><i class="fas fa-file-alt"></i> Templates</a>
+        <a href="history.html" class="nav-link"><i class="fas fa-history"></i> History</a>
+        <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+
+    <main class="main">
+        <div class="header" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1 class="title">Templates</h1>
+                <p class="subtitle">Manage your custom description templates</p>
+            </div>
+            <button class="btn btn-primary" onclick="showModal()"><i class="fas fa-plus"></i> New Template</button>
+        </div>
+
+        <h3 style="margin-bottom: 1rem;">Built-in Templates</h3>
+        <div class="template-grid">
+            <div class="card template-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;"><span
+                        class="template-name">Professional</span><span class="badge">Default</span></div>
+                <p class="template-preview">Formal, business-focused descriptions perfect for B2B products</p>
+            </div>
+            <div class="card template-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;"><span
+                        class="template-name">Casual</span></div>
+                <p class="template-preview">Friendly, approachable tone for everyday products</p>
+            </div>
+            <div class="card template-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;"><span
+                        class="template-name">Luxury</span></div>
+                <p class="template-preview">Sophisticated language for premium products</p>
+            </div>
+            <div class="card template-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;"><span
+                        class="template-name">Playful</span></div>
+                <p class="template-preview">Fun, energetic copy with emojis and excitement</p>
+            </div>
+            <div class="card template-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;"><span
+                        class="template-name">SEO-Optimized</span></div>
+                <p class="template-preview">Keyword-rich descriptions for search visibility</p>
+            </div>
+            <div class="card template-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;"><span
+                        class="template-name">Storytelling</span></div>
+                <p class="template-preview">Narrative-driven copy that connects emotionally</p>
+            </div>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem;">Your Custom Templates</h3>
+        <div id="customTemplates" class="template-grid"></div>
+    </main>
+
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">Create Template</h3>
+            <div class="form-group"><label class="form-label">Template Name</label><input type="text" class="form-input"
+                    id="tplName" placeholder="e.g. My Brand Voice"></div>
+            <div class="form-group"><label class="form-label">Intro Template</label><textarea class="form-textarea"
+                    id="tplIntro" placeholder="Use {name}, {features}, {audience}, {keywords}"></textarea></div>
+            <div class="form-group"><label class="form-label">Body Template</label><textarea class="form-textarea"
+                    id="tplBody"></textarea></div>
+            <div class="form-group"><label class="form-label">Close Template</label><textarea class="form-textarea"
+                    id="tplClose"></textarea></div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn btn-primary" onclick="createTemplate()" style="flex: 1;"><i class="fas fa-save"></i>
+                    Save</button>
+                <button class="btn btn-outline" onclick="hideModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadTemplates() {
+            const templates = GeniusAPI.customTemplates.getAll();
+            const container = document.getElementById('customTemplates');
+
+            if (templates.length === 0) {
+                container.innerHTML = '<p style="color: var(--muted); grid-column: 1/-1;">No custom templates yet. Create your first one!</p>';
+            } else {
+                container.innerHTML = templates.map(t => `
+                    <div class="card template-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="template-name">${t.name}</span>
+                            <button class="btn btn-outline" style="padding: 0.4rem 0.6rem;" onclick="deleteTemplate('${t.id}')"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <p class="template-preview">${t.intro.substring(0, 80)}...</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function showModal() { document.getElementById('createModal').classList.add('active'); }
+        function hideModal() { document.getElementById('createModal').classList.remove('active'); }
+
+        function createTemplate() {
+            const name = document.getElementById('tplName').value.trim();
+            const intro = document.getElementById('tplIntro').value.trim();
+            const body = document.getElementById('tplBody').value.trim();
+            const close = document.getElementById('tplClose').value.trim();
+
+            if (!name || !intro) { alert('Please fill in required fields'); return; }
+
+            GeniusAPI.customTemplates.add({ name, intro, body, close });
+            hideModal();
+            loadTemplates();
+            GeniusAPI.toast.show('Template created!');
+        }
+
+        function deleteTemplate(id) {
+            if (!confirm('Delete this template?')) return;
+            GeniusAPI.customTemplates.delete(id);
+            loadTemplates();
+        }
+
+        loadTemplates();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - CopyGenius AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="api.js"></script>
+    <style>
+        :root {
+            --primary: #ec4899;
+            --bg: #0f0f23;
+            --card: rgba(255, 255, 255, 0.05);
+            --text: #fff;
+            --muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background: rgba(15, 15, 35, 0.95);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--muted);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-link:hover {
+            background: var(--card);
+        }
+
+        .nav-link.active {
+            background: rgba(236, 72, 153, 0.15);
+            color: var(--primary);
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .history-item {
+            transition: all 0.3s;
+        }
+
+        .history-item:hover {
+            border-color: var(--primary);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-name {
+            font-weight: 600;
+        }
+
+        .history-meta {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .history-text {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            padding: 0.2rem 0.5rem;
+            background: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 250px;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            padding: 0.6rem;
+            color: var(--text);
+            flex: 1;
+        }
+
+        .search-box input:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="logo"><i class="fas fa-wand-magic-sparkles"></i> CopyGenius</div>
+        <a href="index.html" class="nav-link"><i class="fas fa-pen"></i> Generate</a>
+        <a href="templates.html" class="nav-link"><i class="fas fa-file-alt"></i> Templates</a>
+        <a href="history.html" class="nav-link active"><i class="fas fa-history"></i> History</a>
+        <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+
+    <main class="main">
+        <div class="header">
+            <div>
+                <h1 class="title">Generation History</h1>
+                <p class="subtitle">View and reuse your past generations</p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <div class="search-box"><i class="fas fa-search" style="color: var(--muted);"></i><input type="text"
+                        placeholder="Search..." id="searchInput" oninput="filterHistory()"></div>
+                <button class="btn btn-outline" onclick="clearHistory()"><i class="fas fa-trash"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="historyList"></div>
+    </main>
+
+    <script>
+        function loadHistory() {
+            const history = GeniusAPI.history.getAll();
+            renderHistory(history);
+        }
+
+        function renderHistory(history) {
+            const container = document.getElementById('historyList');
+
+            if (history.length === 0) {
+                container.innerHTML = '<div class="card" style="text-align: center; padding: 3rem; color: var(--muted);">No generations yet. <a href="index.html" style="color: var(--primary);">Create your first one!</a></div>';
+                return;
+            }
+
+            container.innerHTML = history.map(h => `
+                <div class="card history-item">
+                    <div class="history-header">
+                        <div>
+                            <span class="product-name">${h.productName}</span>
+                            <span class="badge">${h.tone}</span>
+                        </div>
+                        <div>
+                            <span class="history-meta">${new Date(h.createdAt).toLocaleDateString()}</span>
+                            <button class="btn btn-outline btn-sm" onclick="copyText(\`${h.output.replace(/`/g, "'")}\`)"><i class="fas fa-copy"></i></button>
+                            <button class="btn btn-outline btn-sm" onclick="deleteItem('${h.id}')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <p class="history-text">${h.output}</p>
+                    <div class="history-meta">
+                        <strong>Features:</strong> ${h.features} | <strong>Audience:</strong> ${h.audience}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterHistory() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const history = GeniusAPI.history.getAll().filter(h =>
+                h.productName.toLowerCase().includes(search) ||
+                h.output.toLowerCase().includes(search)
+            );
+            renderHistory(history);
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text);
+            GeniusAPI.toast.show('Copied to clipboard!');
+        }
+
+        function deleteItem(id) {
+            GeniusAPI.history.delete(id);
+            loadHistory();
+        }
+
+        function clearHistory() {
+            if (!confirm('Clear all history?')) return;
+            GeniusAPI.storage.set('history', []);
+            loadHistory();
+        }
+
+        loadHistory();
+    </script>
+</body>
+
+</html>
