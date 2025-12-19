@@ -13,6 +13,7 @@
             --primary: #ec4899;
             --primary-dark: #db2777;
             --secondary: #8b5cf6;
+            --success: #10b981;
             --bg-dark: #0f0f23;
             --bg-card: rgba(255, 255, 255, 0.05);
             --text: #fff;
@@ -37,7 +38,7 @@
         .bg-gradient {
             position: fixed;
             inset: 0;
-            background: radial-gradient(ellipse at 20% 20%, rgba(236, 72, 153, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            background: radial-gradient(ellipse at 30% 20%, rgba(236, 72, 153, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
             z-index: -1;
         }
 
@@ -47,7 +48,6 @@
             align-items: center;
             padding: 1.5rem 2rem;
             background: var(--bg-card);
-            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
         }
 
@@ -64,150 +64,192 @@
         }
 
         .logo span {
-            background: linear-gradient(135deg, var(--primary), #f472b6);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .badge-ai {
-            background: linear-gradient(135deg, var(--secondary), #a78bfa);
-            color: #fff;
-            font-size: 0.65rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-weight: 700;
-        }
-
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        .hero {
-            text-align: center;
-            padding: 2rem 0 3rem;
+        .main-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 2rem;
         }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .generator-card {
+        .card {
             background: var(--bg-card);
-            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 i {
+            color: var(--primary);
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--text-muted);
             font-size: 0.9rem;
-            font-weight: 500;
+            color: var(--text-muted);
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
+            padding: 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
             background: rgba(255, 255, 255, 0.03);
             color: var(--text);
-            font-size: 1rem;
-            transition: all 0.3s;
+            font-size: 0.95rem;
+            resize: none;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 20px var(--glow);
         }
 
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-row {
+        .tone-selector {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .tone-btn {
+            padding: 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .tone-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .tone-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .slider-group {
+            margin-top: 1rem;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .slider-value {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
         }
 
         .btn {
-            padding: 1rem 2rem;
+            padding: 0.85rem 1.5rem;
             border: none;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
+            width: 100%;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
+            color: #fff;
             box-shadow: 0 4px 20px var(--glow);
-            width: 100%;
-            justify-content: center;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: auto;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
         }
 
         .output-section {
-            margin-top: 2rem;
-            display: none;
-        }
-
-        .output-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         .output-card {
-            background: rgba(236, 72, 153, 0.1);
-            border: 1px solid var(--primary);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 1.5rem;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .output-card:hover {
+            border-color: var(--primary);
+        }
+
+        .output-card.selected {
+            border-color: var(--primary);
+            background: rgba(236, 72, 153, 0.1);
         }
 
         .output-header {
@@ -217,57 +259,182 @@
             margin-bottom: 1rem;
         }
 
-        .output-header h3 {
-            font-size: 1.1rem;
+        .output-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .icon-btn:hover {
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .output-text {
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .output-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .word-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .seo-score {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .seo-score i {
+            color: var(--success);
+        }
+
+        .keywords-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            min-height: 50px;
+        }
+
+        .keyword-tag {
+            padding: 0.3rem 0.75rem;
+            background: rgba(236, 72, 153, 0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .output-header h3 i {
-            color: var(--primary);
-        }
-
-        .copy-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-
-        .copy-btn:hover {
-            background: var(--bg-card);
-        }
-
-        .output-text {
-            line-height: 1.8;
+        .keyword-tag button {
+            background: none;
+            border: none;
             color: var(--text-muted);
-            white-space: pre-wrap;
+            cursor: pointer;
+        }
+
+        .keywords-input input {
+            flex: 1;
+            min-width: 100px;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            padding: 0.25rem;
+        }
+
+        .keywords-input input:focus {
+            outline: none;
         }
 
         .loading {
+            display: none;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem;
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--border);
-            border-top-color: var(--primary);
+        .loading.active {
+            display: block;
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .loading-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            background: var(--primary);
+            animation: bounce 1.4s infinite ease-in-out both;
         }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
+        .loading-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
             }
+
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        .history-panel {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .history-panel h4 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .history-item {
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .history-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .history-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .history-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
         }
 
         footer {
@@ -276,94 +443,243 @@
             color: var(--text-muted);
         }
 
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="bg-gradient"></div>
+
     <header>
-        <div class="logo"><i class="fas fa-wand-magic-sparkles"></i><span>CopyGenius</span><span
-                class="badge-ai">AI</span></div>
-    </header>
-    <main class="container">
-        <section class="hero">
-            <h1>AI Product Descriptions</h1>
-            <p>Generate compelling, SEO-optimized product descriptions in seconds</p>
-        </section>
-        <div class="generator-card">
-            <div class="form-group">
-                <label>Product Name</label>
-                <input type="text" id="productName" placeholder="e.g., Premium Wireless Headphones">
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Category</label>
-                    <select id="category">
-                        <option value="electronics">Electronics</option>
-                        <option value="fashion">Fashion</option>
-                        <option value="home">Home & Garden</option>
-                        <option value="beauty">Beauty</option>
-                        <option value="sports">Sports</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Tone</label>
-                    <select id="tone">
-                        <option value="professional">Professional</option>
-                        <option value="casual">Casual & Friendly</option>
-                        <option value="luxury">Luxury & Premium</option>
-                        <option value="playful">Playful & Fun</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Key Features (comma separated)</label>
-                <input type="text" id="features" placeholder="e.g., Noise cancelling, 40hr battery, Bluetooth 5.0">
-            </div>
-            <div class="form-group">
-                <label>Target Audience (optional)</label>
-                <input type="text" id="audience" placeholder="e.g., Music lovers, Remote workers">
-            </div>
-            <button class="btn btn-primary" onclick="generateDescription()">
-                <i class="fas fa-sparkles"></i> Generate Description
-            </button>
+        <div class="logo"><i class="fas fa-wand-magic-sparkles"></i><span>CopyGenius AI</span></div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Credits: <strong
+                    style="color: var(--primary);">47</strong></span>
+            <button class="btn-outline"
+                style="padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--text); cursor: pointer;"><i
+                    class="fas fa-history"></i> History</button>
         </div>
-        <div class="output-section" id="outputSection">
-            <div class="output-card">
-                <div class="output-header">
-                    <h3><i class="fas fa-file-alt"></i> Generated Description</h3>
-                    <button class="copy-btn" onclick="copyText()"><i class="fas fa-copy"></i> Copy</button>
+    </header>
+
+    <main class="container">
+        <div class="main-grid">
+            <div class="card">
+                <h3><i class="fas fa-edit"></i> Product Details</h3>
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="productName" placeholder="e.g., Premium Wireless Headphones">
                 </div>
-                <div class="output-text" id="outputText"></div>
+                <div class="form-group">
+                    <label>Key Features (one per line)</label>
+                    <textarea id="features" rows="4"
+                        placeholder="Active noise cancellation&#10;40-hour battery life&#10;Premium leather cushions"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>SEO Keywords</label>
+                    <div class="keywords-input" id="keywordsContainer">
+                        <input type="text" id="keywordInput" placeholder="Add keyword + Enter">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Writing Tone</label>
+                    <div class="tone-selector">
+                        <button class="tone-btn active" onclick="setTone(this, 'professional')">Professional</button>
+                        <button class="tone-btn" onclick="setTone(this, 'casual')">Casual</button>
+                        <button class="tone-btn" onclick="setTone(this, 'luxury')">Luxury</button>
+                        <button class="tone-btn" onclick="setTone(this, 'playful')">Playful</button>
+                        <button class="tone-btn" onclick="setTone(this, 'technical')">Technical</button>
+                        <button class="tone-btn" onclick="setTone(this, 'minimal')">Minimal</button>
+                    </div>
+                </div>
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span class="slider-label">Description Length</span>
+                        <span class="slider-value" id="lengthValue">Medium</span>
+                    </div>
+                    <input type="range" min="1" max="3" value="2" id="lengthSlider" oninput="updateLength()">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span class="slider-label">Creativity Level</span>
+                        <span class="slider-value" id="creativityValue">Balanced</span>
+                    </div>
+                    <input type="range" min="1" max="3" value="2" id="creativitySlider" oninput="updateCreativity()">
+                </div>
+                <button class="btn btn-primary" onclick="generate()" style="margin-top: 1.5rem;"><i
+                        class="fas fa-sparkles"></i> Generate Descriptions</button>
+
+                <div class="history-panel">
+                    <h4><i class="fas fa-clock"></i> Recent Generations</h4>
+                    <div class="history-item">
+                        <div class="history-title">Premium Wireless Headphones</div>
+                        <div class="history-meta">3 variants • 2 hours ago</div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-title">Organic Cotton T-Shirt</div>
+                        <div class="history-meta">3 variants • Yesterday</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="loading" id="loading">
+                    <div class="loading-dots">
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                    </div>
+                    <p style="color: var(--text-muted);">AI is crafting your descriptions...</p>
+                </div>
+
+                <div class="output-section" id="output">
+                    <div class="output-card selected">
+                        <div class="output-header">
+                            <span class="output-label">Variant A - Recommended</span>
+                            <div class="output-actions">
+                                <button class="icon-btn" onclick="copyText(0)" title="Copy"><i
+                                        class="fas fa-copy"></i></button>
+                                <button class="icon-btn" onclick="regenerate(0)" title="Regenerate"><i
+                                        class="fas fa-sync"></i></button>
+                                <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </div>
+                        <div class="output-text" id="output1">Experience audio perfection with our Premium Wireless
+                            Headphones. Featuring cutting-edge active noise cancellation technology, these headphones
+                            immerse you in pure, uninterrupted sound. With an impressive 40-hour battery life, they're
+                            designed for marathon listening sessions. The premium leather cushions provide cloud-like
+                            comfort, making them perfect for work, travel, or relaxation.</div>
+                        <div class="output-footer">
+                            <span class="word-count">58 words • 342 characters</span>
+                            <span class="seo-score"><i class="fas fa-check-circle"></i> SEO Score: 92%</span>
+                        </div>
+                    </div>
+
+                    <div class="output-card">
+                        <div class="output-header">
+                            <span class="output-label">Variant B - Casual</span>
+                            <div class="output-actions">
+                                <button class="icon-btn" onclick="copyText(1)" title="Copy"><i
+                                        class="fas fa-copy"></i></button>
+                                <button class="icon-btn" onclick="regenerate(1)" title="Regenerate"><i
+                                        class="fas fa-sync"></i></button>
+                                <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </div>
+                        <div class="output-text" id="output2">Say goodbye to noise and hello to your new favorite
+                            headphones! Our Premium Wireless Headphones pack serious power with 40 hours of playtime and
+                            noise-canceling tech that'll make your commute feel like a personal concert. Plus, those
+                            buttery-soft leather cushions? Pure bliss for your ears.</div>
+                        <div class="output-footer">
+                            <span class="word-count">52 words • 298 characters</span>
+                            <span class="seo-score"><i class="fas fa-check-circle"></i> SEO Score: 88%</span>
+                        </div>
+                    </div>
+
+                    <div class="output-card">
+                        <div class="output-header">
+                            <span class="output-label">Variant C - Luxury</span>
+                            <div class="output-actions">
+                                <button class="icon-btn" onclick="copyText(2)" title="Copy"><i
+                                        class="fas fa-copy"></i></button>
+                                <button class="icon-btn" onclick="regenerate(2)" title="Regenerate"><i
+                                        class="fas fa-sync"></i></button>
+                                <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </div>
+                        <div class="output-text" id="output3">Indulge in the epitome of auditory excellence. Our Premium
+                            Wireless Headphones represent the pinnacle of acoustic engineering, featuring
+                            state-of-the-art noise cancellation and an extraordinary 40-hour battery capacity. Wrapped
+                            in sumptuous hand-crafted leather, every detail speaks to uncompromising quality and refined
+                            sophistication.</div>
+                        <div class="output-footer">
+                            <span class="word-count">48 words • 312 characters</span>
+                            <span class="seo-score"><i class="fas fa-check-circle"></i> SEO Score: 85%</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
+
     <footer>
         <p>Part of the <a href="#">ShopifyHero Tools</a> suite</p>
     </footer>
+
     <script>
-        function generateDescription() {
-            const name = document.getElementById('productName').value.trim();
-            if (!name) { alert('Please enter a product name'); return; }
-            const features = document.getElementById('features').value || 'Quality materials, Premium design';
-            const tone = document.getElementById('tone').value;
-            const descriptions = {
-                professional: `Introducing the ${name} – engineered for excellence.\n\nKey Features:\n• ${features.split(',').join('\n• ')}\n\nExperience unparalleled quality with our meticulously crafted ${name}. Designed for discerning customers who demand nothing but the best, this product combines cutting-edge technology with timeless elegance.\n\nWhether you're a professional or an enthusiast, the ${name} delivers exceptional performance that exceeds expectations. Invest in quality – invest in ${name}.`,
-                casual: `Meet your new favorite: the ${name}! 🎉\n\nWhat makes it awesome:\n✓ ${features.split(',').join('\n✓ ')}\n\nWe get it – you want something that just works and looks great doing it. That's exactly why we created the ${name}. No complicated setups, no gimmicks – just pure awesomeness delivered right to your door.\n\nJoin thousands of happy customers who've already made the switch. You won't regret it!`,
-                luxury: `The ${name} – Where Elegance Meets Innovation\n\nDistinguishing Features:\n◆ ${features.split(',').join('\n◆ ')}\n\nCrafted for those who appreciate the finer things in life, the ${name} represents the pinnacle of refined sophistication. Each piece is meticulously designed to deliver an experience that transcends the ordinary.\n\nIndulge in the extraordinary. Elevate your lifestyle with ${name}.`,
-                playful: `🚀 Say hello to the ${name}!\n\nWhy you'll love it:\n🌟 ${features.split(',').join('\n🌟 ')}\n\nReady to level up? The ${name} is here to make your life more awesome! We've packed all the good stuff into one amazing package that'll make you wonder how you ever lived without it.\n\nGrab yours today and join the fun! 🎊`
-            };
-            document.getElementById('outputText').textContent = descriptions[tone];
-            document.getElementById('outputSection').classList.add('active');
+        let keywords = [];
+        let selectedTone = 'professional';
+
+        document.getElementById('keywordInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                e.preventDefault();
+                addKeyword(this.value.trim());
+                this.value = '';
+            }
+        });
+
+        function addKeyword(keyword) {
+            if (!keywords.includes(keyword)) {
+                keywords.push(keyword);
+                renderKeywords();
+            }
         }
-        function copyText() {
-            navigator.clipboard.writeText(document.getElementById('outputText').textContent);
+
+        function removeKeyword(keyword) {
+            keywords = keywords.filter(k => k !== keyword);
+            renderKeywords();
+        }
+
+        function renderKeywords() {
+            const container = document.getElementById('keywordsContainer');
+            const input = document.getElementById('keywordInput');
+            container.innerHTML = '';
+            keywords.forEach(k => {
+                const tag = document.createElement('span');
+                tag.className = 'keyword-tag';
+                tag.innerHTML = `${k}<button onclick="removeKeyword('${k}')">&times;</button>`;
+                container.appendChild(tag);
+            });
+            container.appendChild(input);
+        }
+
+        function setTone(btn, tone) {
+            document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedTone = tone;
+        }
+
+        function updateLength() {
+            const val = document.getElementById('lengthSlider').value;
+            const labels = ['Short', 'Medium', 'Long'];
+            document.getElementById('lengthValue').textContent = labels[val - 1];
+        }
+
+        function updateCreativity() {
+            const val = document.getElementById('creativitySlider').value;
+            const labels = ['Conservative', 'Balanced', 'Creative'];
+            document.getElementById('creativityValue').textContent = labels[val - 1];
+        }
+
+        function generate() {
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('output').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('output').style.display = 'flex';
+            }, 2000);
+        }
+
+        function copyText(index) {
+            const text = document.getElementById(`output${index + 1}`).textContent;
+            navigator.clipboard.writeText(text);
             alert('Copied to clipboard!');
         }
+
+        function regenerate(index) { alert('Regenerating variant...'); }
     </script>
 </body>
 
